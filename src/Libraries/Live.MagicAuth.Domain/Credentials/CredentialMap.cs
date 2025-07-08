@@ -1,0 +1,17 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Live.MagicAuth.Domain.Credentials
+{
+    /// <summary>
+    /// Represents a credential mapping
+    /// </summary>
+    public class CredentialMap : IEntityTypeConfiguration<Credential>
+    {
+        public void Configure(EntityTypeBuilder<Credential> builder)
+        {
+            builder.Property(credential => credential.Descriptor)
+                .HasColumnType("jsonb");
+        }
+    }
+}

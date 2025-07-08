@@ -5,6 +5,10 @@ VisualStudioVersion = 17.14.36202.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live.MagicAuth", "Live.MagicAuth\Live.MagicAuth.csproj", "{98AB9C47-DF75-469F-827F-6017581A67A6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Live.MagicAuth.Domain", "Libraries\Live.MagicAuth.Domain\Live.MagicAuth.Domain.csproj", "{8505880A-D3C5-4F4B-ABD1-A0C62ABD100D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +19,16 @@ Global
 		{98AB9C47-DF75-469F-827F-6017581A67A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{98AB9C47-DF75-469F-827F-6017581A67A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{98AB9C47-DF75-469F-827F-6017581A67A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8505880A-D3C5-4F4B-ABD1-A0C62ABD100D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8505880A-D3C5-4F4B-ABD1-A0C62ABD100D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8505880A-D3C5-4F4B-ABD1-A0C62ABD100D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8505880A-D3C5-4F4B-ABD1-A0C62ABD100D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8505880A-D3C5-4F4B-ABD1-A0C62ABD100D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B1764FD8-0B31-4DE7-80AF-04DA5242CAC8}
