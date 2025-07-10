@@ -11,7 +11,7 @@ namespace Live.MagicAuth.Domain.Customers
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
-            builder.HasIndex(customer => customer.Id);
+            builder.HasKey(customer => customer.Id);
 
             builder.HasIndex(customer => customer.Name)
                 .IsUnique();

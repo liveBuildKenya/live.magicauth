@@ -1,4 +1,6 @@
-﻿namespace Live.MagicAuth.Domain.Customers
+﻿using Live.MagicAuth.Domain.Shared;
+
+namespace Live.MagicAuth.Domain.Customers
 {
     /// <summary>
     /// Represents a customer

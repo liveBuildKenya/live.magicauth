@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Live.MagicAuth.Domain.Shared;
+using Microsoft.EntityFrameworkCore;
 
 namespace Live.MagicAuth.Domain.Infrastructure.Data
 {

@@ -1,4 +1,6 @@
-﻿namespace Live.MagicAuth.Domain.Credentials
+﻿using Live.MagicAuth.Domain.Shared;
+
+namespace Live.MagicAuth.Domain.Credentials
 {
     /// <summary>
     /// Represents a credential

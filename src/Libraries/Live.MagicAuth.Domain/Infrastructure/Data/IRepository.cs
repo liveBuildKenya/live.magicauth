@@ -1,4 +1,6 @@
-﻿namespace Live.MagicAuth.Domain.Infrastructure.Data
+﻿using Live.MagicAuth.Domain.Shared;
+
+namespace Live.MagicAuth.Domain.Infrastructure.Data
 {
     /// <summary>
     /// Represents an entity repository

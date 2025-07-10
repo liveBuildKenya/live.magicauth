@@ -1,4 +1,4 @@
-﻿namespace Live.MagicAuth.Domain
+﻿namespace Live.MagicAuth.Domain.Shared
 {
     /// <summary>
     /// Represents the base class
@@ -7,8 +7,8 @@
     {
         public BaseEntity() 
         {
-            this.DateCreated = DateTime.UtcNow;
-            this.DateUpdated = DateTime.UtcNow;
+            DateCreated = DateTime.UtcNow;
+            DateUpdated = DateTime.UtcNow;
         }
 
         /// <summary>
