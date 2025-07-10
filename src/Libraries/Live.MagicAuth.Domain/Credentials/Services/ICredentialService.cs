@@ -20,6 +20,13 @@
         Credential GetCredentialByCredentialId(byte[] credentialId);
 
         /// <summary>
+        /// Gets credentials by credential identifier
+        /// </summary>
+        /// <param name="credentialId">Credential id</param>
+        /// <returns>Credentials</returns>
+        List<Credential> GetCredentialsByCredentialId(byte[] credentialId);
+
+        /// <summary>
         /// Inserts a credential
         /// </summary>
         /// <param name="credential">Credential</param>

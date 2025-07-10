@@ -12,7 +12,7 @@ namespace Live.MagicAuth.Domain.Infrastructure
     /// </summary>
     public static class DependencyInjection
     {
-        public static void AddMagicAuthServices(this IServiceCollection serviceCollection, IConfiguration configuration)
+        public static void AddMagicAuthDomainServices(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddScoped(typeof(IRepository<>), typeof(EntityRepository<>));
 

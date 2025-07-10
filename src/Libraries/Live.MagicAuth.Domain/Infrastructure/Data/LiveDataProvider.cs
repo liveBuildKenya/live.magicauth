@@ -1,7 +1,6 @@
 ﻿using Live.MagicAuth.Domain.Shared;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Live.MagicAuth.Domain.Infrastructure.Data
 {

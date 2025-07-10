@@ -1,5 +1,6 @@
-﻿using Live.MagicAuth.Attestation;
-using Live.MagicAuth.Attestation.Services;
+﻿using Live.MagicAuth.Application.Infrastructure;
+using Live.MagicAuth.Attestation;
+using Live.MagicAuth.Domain.Infrastructure.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -46,7 +47,7 @@ namespace Live.MagicAuth
             serviceCollection.AddHttpContextAccessor();
             serviceCollection.AddRazorPages();
             serviceCollection.AddOpenApi();
-            serviceCollection.AddTransient<IAttestationService, AttestationService>();
+            serviceCollection.AddMagicAuthApplicationServices(Configuration);
 
             var origins = new[] { "https://localhost:7286", "https://localhost:44368/" };
             var originsHashSet = new HashSet<string>(origins);
@@ -79,7 +80,7 @@ namespace Live.MagicAuth
             {
                 applicationBuilder.UseDeveloperExceptionPage();
             }
-
+            applicationBuilder.RunMigrations();
             applicationBuilder.UseSession();
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseRouting();

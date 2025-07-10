@@ -10,6 +10,10 @@ namespace Live.MagicAuth.Domain.Credentials
     {
         public void Configure(EntityTypeBuilder<Credential> builder)
         {
+            builder.ToTable(nameof(Credential));
+
+            builder.HasKey(credential => credential.RegDate);
+
             builder.Property(credential => credential.Descriptor)
                 .HasColumnType("jsonb");
         }

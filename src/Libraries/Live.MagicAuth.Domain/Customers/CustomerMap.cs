@@ -11,6 +11,8 @@ namespace Live.MagicAuth.Domain.Customers
     {
         public void Configure(EntityTypeBuilder<Customer> builder)
         {
+            builder.ToTable(nameof(Customer));
+
             builder.HasKey(customer => customer.Id);
 
             builder.HasIndex(customer => customer.Name)

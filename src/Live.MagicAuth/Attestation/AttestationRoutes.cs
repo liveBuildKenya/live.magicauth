@@ -1,6 +1,6 @@
 ﻿using Fido2NetLib;
-using Live.MagicAuth.Attestation.Models;
-using Live.MagicAuth.Attestation.Services;
+using Live.MagicAuth.Application.UseCases.Attestation.Models;
+using Live.MagicAuth.Application.UseCases.Attestation.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -20,12 +20,12 @@ namespace Live.MagicAuth.Attestation
             endpointRouteBuilder.MapGet("/credentials/options",
                 ([FromQuery] string email,
                 [FromQuery] string displayName,
-                [FromServices] IAttestationService attestationService) =>
-                attestationService.MakeCredentialOptions(new CredentialOptionsRequestModel { Email = email, DisplayName = displayName }));
+                [FromServices] IAttestationUseCase attestationUseCase) =>
+                attestationUseCase.MakeCredentialOptions(new CredentialOptionsRequestModel { Email = email, DisplayName = displayName }));
 
             endpointRouteBuilder.MapPost("/credentials",
                 async ([FromBody]AuthenticatorAttestationRawResponse authenticatorAttestationRawResponse,
-                [FromServices]IAttestationService attestationService,
+                [FromServices]IAttestationUseCase attestationService,
                 CancellationToken cancellationToken) => await attestationService.RegisterCredentials(authenticatorAttestationRawResponse, cancellationToken));
         }
     }

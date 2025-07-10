@@ -41,6 +41,17 @@ namespace Live.MagicAuth.Domain.Credentials.Services
                     .FirstOrDefault();
         }
 
+        public List<Credential> GetCredentialsByCredentialId(byte[] credentialId)
+        {
+            var base64Id = Convert.ToBase64String(credentialId);
+            var jsonFragment = $@"{{""Id"":""{base64Id}""}}";
+
+            return (from credential in credentialRepository.Table
+                    where EF.Functions.JsonContains(credential.Descriptor, jsonFragment)
+                    select credential)
+                    .ToList();
+        }
+
         /// <summary>
         /// Gets credentials by customer identifier
         /// </summary>

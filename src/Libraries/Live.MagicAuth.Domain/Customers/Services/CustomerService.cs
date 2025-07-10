@@ -42,7 +42,7 @@ namespace Live.MagicAuth.Domain.Customers.Services
         public Customer GetCustomerByName(string name)
         {
             return (from customer in customerRepository.Table
-                    where customer.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)
+                    where customer.Name.ToLower() == name.ToLower()
                     select customer).FirstOrDefault();
         }
 

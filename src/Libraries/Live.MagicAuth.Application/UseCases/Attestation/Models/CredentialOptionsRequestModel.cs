@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-namespace Live.MagicAuth.Attestation.Models
+﻿namespace Live.MagicAuth.Application.UseCases.Attestation.Models
 {
     /// <summary>
     /// Represents the credential options request model
