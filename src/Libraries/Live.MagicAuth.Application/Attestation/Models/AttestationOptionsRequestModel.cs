@@ -1,9 +1,9 @@
-﻿namespace Live.MagicAuth.Application.UseCases.Attestation.Models
+﻿namespace Live.MagicAuth.Application.Attestation.Models
 {
     /// <summary>
     /// Represents the credential options request model
     /// </summary>
-    public class CredentialOptionsRequestModel
+    public class AttestationOptionsRequestModel
     {
         /// <summary>
         /// Gets or sets the email

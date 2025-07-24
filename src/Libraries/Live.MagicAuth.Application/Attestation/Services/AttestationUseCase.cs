@@ -1,19 +1,13 @@
 ﻿using Fido2NetLib;
 using Fido2NetLib.Development;
 using Fido2NetLib.Objects;
+using Live.MagicAuth.Application.Attestation.Models;
 using Live.MagicAuth.Application.Credentials;
 using Live.MagicAuth.Application.Customers;
-using Live.MagicAuth.Application.UseCases.Attestation.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using static Fido2NetLib.Fido2;
 
-namespace Live.MagicAuth.Application.UseCases.Attestation.Services
+namespace Live.MagicAuth.Application.Attestation.Services
 {
     /// <summary>
     /// Represents the attestation service implementation
@@ -44,7 +38,9 @@ namespace Live.MagicAuth.Application.UseCases.Attestation.Services
 
         #endregion
 
-        public IResult MakeCredentialOptions(CredentialOptionsRequestModel credentialOptionsRequestModel)
+        #region Methods
+
+        public IResult MakeAttestationOptions(AttestationOptionsRequestModel credentialOptionsRequestModel)
         {
             //Get user from db by username.
             var customerModel = customerFactory.GetCustomerWithCredentials(credentialOptionsRequestModel.Email);
@@ -86,7 +82,6 @@ namespace Live.MagicAuth.Application.UseCases.Attestation.Services
             IsCredentialIdUniqueToUserAsyncDelegate callback = async (args, cancellationToken) =>
             {
                 var response = await credentialFactory.IsCredentialUniqueToCustomer(args.CredentialId);
-                Console.WriteLine($"Unique {response}");
                 return response;
             };
             //Request for a new credential
@@ -105,5 +100,7 @@ namespace Live.MagicAuth.Application.UseCases.Attestation.Services
 
             return Results.Ok(storedCredential);
         }
+
+        #endregion
     }
 }

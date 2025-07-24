@@ -1,6 +1,7 @@
-﻿using Live.MagicAuth.Application.Credentials;
+﻿using Live.MagicAuth.Application.Assertion.Services;
+using Live.MagicAuth.Application.Attestation.Services;
+using Live.MagicAuth.Application.Credentials;
 using Live.MagicAuth.Application.Customers;
-using Live.MagicAuth.Application.UseCases.Attestation.Services;
 using Live.MagicAuth.Domain.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ namespace Live.MagicAuth.Application.Infrastructure
             serviceCollection.AddTransient<ICredentialFactory, CredentialFactory>();
 
             serviceCollection.AddTransient<IAttestationUseCase, AttestationUseCase>();
+            serviceCollection.AddTransient<IAssertionUseCase, AssertionUseCase>();
         }
     }
 }

@@ -21,8 +21,16 @@ namespace Live.MagicAuth.Application.Credentials
         /// Checks if a credential is unique to a customer.
         /// </summary>
         /// <param name="credentialId">Credential identifier</param>
-        /// <returns>True, if unique false otherwise</returns>
+        /// <returns></returns>
         Task<bool> IsCredentialUniqueToCustomer(byte[] credentialId);
+
+        /// <summary>
+        /// Checks if a user handle is the owner of a specific credential ID.
+        /// </summary>
+        /// <param name="credentialId">Credential Identifier</param>
+        /// <param name="userHandle">User Handle</param>
+        /// <returns></returns>
+        Task<bool> IsUserHandleOwnerOfCredentialId(byte[] credentialId, byte[] userHandle);
 
         /// <summary>
         /// Inserts a credential to storage
@@ -31,5 +39,8 @@ namespace Live.MagicAuth.Application.Credentials
         /// <param name="credential">Credential</param>
         /// <returns>Stored Credential</returns>
         StoredCredential InsertCredential(Fido2User user, StoredCredential credential);
+
+        (PublicKeyCredentialDescriptor descriptor, uint signatureCount, byte[] pubKey) GetCredentialByCredentialIdAndSignatureCount(byte[] credentialId);
+        void UpdateCounter(byte[] credentialId, uint counter);
     }
 }

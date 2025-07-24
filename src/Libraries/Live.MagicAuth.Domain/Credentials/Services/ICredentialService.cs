@@ -31,5 +31,6 @@
         /// </summary>
         /// <param name="credential">Credential</param>
         void InsertCredential(Credential credential);
+        List<Credential> GetCredentialsByUserHandle(byte[] userHandle);
     }
 }

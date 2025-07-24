@@ -64,6 +64,13 @@ namespace Live.MagicAuth.Domain.Credentials.Services
                     select credential).ToList();
         }
 
+        public List<Credential> GetCredentialsByUserHandle(byte[] userHandle)
+        {
+            return (from credential in credentialRepository.Table
+                    where credential.UserHandle == userHandle
+                    select credential).ToList();
+        }
+
         /// <summary>
         /// Inserts a new credential
         /// </summary>

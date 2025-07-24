@@ -1,6 +1,4 @@
 ﻿using Live.MagicAuth.Application.Shared;
-using Live.MagicAuth.Application.UseCases.Attestation.Models;
-using Live.MagicAuth.Domain.Credentials;
 using Live.MagicAuth.Domain.Credentials.Services;
 using Live.MagicAuth.Domain.Customers;
 using Live.MagicAuth.Domain.Customers.Services;

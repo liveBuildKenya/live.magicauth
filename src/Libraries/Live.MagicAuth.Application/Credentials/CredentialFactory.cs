@@ -49,6 +49,16 @@ namespace Live.MagicAuth.Application.Credentials
             return publicKeyCredentialDescriptors;
         }
 
+        public (PublicKeyCredentialDescriptor descriptor, uint signatureCount, byte[] pubKey) GetCredentialByCredentialIdAndSignatureCount(byte[] credentialId)
+        {
+            var credentials = credentialService.GetCredentialsByCredentialId(credentialId);
+            var credential = credentials.FirstOrDefault();
+            var publicKeyCredentialDescriptor = BuildPublicKeyCredentialDescriptors(credentials).FirstOrDefault();
+
+
+            return (publicKeyCredentialDescriptor, credential.SignatureCounter, credential.PublicKey);
+        }
+
         /// <summary>
         /// Inserts a credential to storage.
         /// </summary>
@@ -84,6 +94,26 @@ namespace Live.MagicAuth.Application.Credentials
             var credentials = credentialService.GetCredentialsByCredentialId(credentialId);
 
             return Task.FromResult(!(credentials.Count > 0));
+        }
+
+        public Task<bool> IsUserHandleOwnerOfCredentialId(byte[] credentialId, byte[] userHandle)
+        {
+            var credentials = credentialService.GetCredentialsByUserHandle(userHandle);
+
+            if (credentials == null || credentials.Count == 0)
+                return Task.FromResult(false);
+
+            List<PublicKeyCredentialDescriptor> storedCredential = BuildPublicKeyCredentialDescriptors(credentials);
+
+            //return storedCredential.Exists(credential => credential.Id.SequenceEqual(credentialId));
+            return Task.FromResult(true);
+        }
+
+        public void UpdateCounter(byte[] credentialId, uint counter)
+        {
+            var credential = credentialService.GetCredentialsByCredentialId(credentialId).FirstOrDefault();
+
+            credential.SignatureCounter = counter;
         }
 
         #endregion
