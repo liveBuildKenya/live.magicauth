@@ -114,6 +114,8 @@ namespace Live.MagicAuth.Application.Credentials
             var credential = credentialService.GetCredentialsByCredentialId(credentialId).FirstOrDefault();
 
             credential.SignatureCounter = counter;
+
+            credentialService.UpdateCredential(credential);
         }
 
         #endregion

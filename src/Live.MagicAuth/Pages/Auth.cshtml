@@ -1,0 +1,17 @@
+﻿@page "/auth/{operation}"
+@model Live.MagicAuth.Pages.AuthModel
+@{
+    ViewData["Title"] = Model.Operation == "register" ? "Register" : "Login";
+    Layout = "_Layout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Operation == "register")
+{
+    <script src="~/js/register.js"></script>
+}
+else if (Model.Operation == "login")
+{
+    <script src="~/js/login.js"></script>
+}

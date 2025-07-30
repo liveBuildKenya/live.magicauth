@@ -13,13 +13,6 @@
         List<Credential> GetCredentialsByCustomerId(byte[] customerId);
 
         /// <summary>
-        /// Gets a credential by credential identifier
-        /// </summary>
-        /// <param name="credentialId">Credential Identifier</param>
-        /// <returns>Credential</returns>
-        Credential GetCredentialByCredentialId(byte[] credentialId);
-
-        /// <summary>
         /// Gets credentials by credential identifier
         /// </summary>
         /// <param name="credentialId">Credential id</param>
@@ -32,5 +25,6 @@
         /// <param name="credential">Credential</param>
         void InsertCredential(Credential credential);
         List<Credential> GetCredentialsByUserHandle(byte[] userHandle);
+        void UpdateCredential(Credential credential);
     }
 }

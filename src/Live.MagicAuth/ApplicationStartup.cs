@@ -1,9 +1,12 @@
 ﻿using Live.MagicAuth.Application.Infrastructure;
+using Live.MagicAuth.Assertion;
 using Live.MagicAuth.Attestation;
 using Live.MagicAuth.Domain.Infrastructure.Data;
+using Live.MagicAuth.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -88,6 +91,7 @@ namespace Live.MagicAuth
             {
                 endpoints.MapRazorPages();
                 endpoints.MapAttestationRoutes();
+                endpoints.MapAssertionRoutes();
                 endpoints.MapOpenApi();
                 endpoints.MapScalarApiReference();
             });

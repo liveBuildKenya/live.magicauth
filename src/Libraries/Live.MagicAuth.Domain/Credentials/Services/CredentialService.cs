@@ -1,5 +1,6 @@
 ﻿using Live.MagicAuth.Domain.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Live.MagicAuth.Domain.Shared.Utilities;
 
 namespace Live.MagicAuth.Domain.Credentials.Services
 {
@@ -25,26 +26,10 @@ namespace Live.MagicAuth.Domain.Credentials.Services
 
         #region Methods
 
-        /// <summary>
-        /// Gets a credential by the credential identifier in the descriptor
-        /// </summary>
-        /// <param name="credentialId">Credential identifier</param>
-        /// <returns>Credential</returns>
-        public Credential GetCredentialByCredentialId(byte[] credentialId)
-        {
-            var base64Id = Convert.ToBase64String(credentialId);
-            var jsonFragment = $@"{{""Id"":""{base64Id}""}}";
-
-            return (from credential in credentialRepository.Table
-                    where EF.Functions.JsonContains(credential.Descriptor, jsonFragment)
-                    select credential)
-                    .FirstOrDefault();
-        }
-
         public List<Credential> GetCredentialsByCredentialId(byte[] credentialId)
         {
-            var base64Id = Convert.ToBase64String(credentialId);
-            var jsonFragment = $@"{{""Id"":""{base64Id}""}}";
+            var base64Id = Helpers.Base64UrlEncode(credentialId);
+            var jsonFragment = $@"{{""id"":""{base64Id}""}}";
 
             return (from credential in credentialRepository.Table
                     where EF.Functions.JsonContains(credential.Descriptor, jsonFragment)
@@ -82,6 +67,14 @@ namespace Live.MagicAuth.Domain.Credentials.Services
                 throw new ArgumentNullException(nameof(Credential));
 
             credentialRepository.Insert(credential);
+        }
+
+        public void UpdateCredential(Credential credential)
+        {
+            if (credential == null) 
+                throw new ArgumentNullException(nameof(Credential));
+
+            credentialRepository.Update(credential);
         }
 
         #endregion

@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Fido2NetLib.Objects;
+using Live.MagicAuth.Domain.Shared.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Text.Json;
 
 namespace Live.MagicAuth.Domain.Credentials
 {
