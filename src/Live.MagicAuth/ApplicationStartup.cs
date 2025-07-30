@@ -84,6 +84,7 @@ namespace Live.MagicAuth
                 applicationBuilder.UseDeveloperExceptionPage();
             }
             applicationBuilder.RunMigrations();
+            applicationBuilder.UseHttpsRedirection();
             applicationBuilder.UseSession();
             applicationBuilder.UseStaticFiles();
             applicationBuilder.UseRouting();

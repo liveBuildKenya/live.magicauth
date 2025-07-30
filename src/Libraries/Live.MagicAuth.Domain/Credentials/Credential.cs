@@ -1,5 +1,4 @@
-﻿using Fido2NetLib.Objects;
-using Live.MagicAuth.Domain.Shared;
+﻿using Live.MagicAuth.Domain.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json;
 
