@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Libraries\Live.MagicAuth.Application\Live.MagicAuth.Application.csproj" />
+    <ProjectReference Include="..\Libraries\Live.MagicAuth.Migrations\Live.MagicAuth.Migrations.csproj" />
   </ItemGroup>
 
 </Project>

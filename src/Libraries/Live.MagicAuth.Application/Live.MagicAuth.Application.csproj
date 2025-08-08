@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Live.MagicAuth.Domain\Live.MagicAuth.Domain.csproj" />
+    <ProjectReference Include="..\Live.MagicAuth.Migrations\Live.MagicAuth.Migrations.csproj" />
   </ItemGroup>
 
 </Project>

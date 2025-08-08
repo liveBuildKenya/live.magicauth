@@ -1,12 +1,12 @@
 ﻿using Live.MagicAuth.Application.Infrastructure;
+using Live.MagicAuth.Application.Migrations;
 using Live.MagicAuth.Assertion;
 using Live.MagicAuth.Attestation;
 using Live.MagicAuth.Domain.Infrastructure.Data;
-using Live.MagicAuth.Utilities;
+using Live.MagicAuth.Migrations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -83,7 +83,7 @@ namespace Live.MagicAuth
             {
                 applicationBuilder.UseDeveloperExceptionPage();
             }
-            applicationBuilder.RunMigrations();
+            applicationBuilder.RunMigrations(Configuration.GetConnectionString("MagicAuth"));
             applicationBuilder.UseHttpsRedirection();
             applicationBuilder.UseSession();
             applicationBuilder.UseStaticFiles();

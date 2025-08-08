@@ -3,9 +3,9 @@ using Live.MagicAuth.Application.Attestation.Services;
 using Live.MagicAuth.Application.Credentials;
 using Live.MagicAuth.Application.Customers;
 using Live.MagicAuth.Domain.Infrastructure;
+using Live.MagicAuth.Migrations.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Runtime.CompilerServices;
 
 namespace Live.MagicAuth.Application.Infrastructure
 {
@@ -23,6 +23,8 @@ namespace Live.MagicAuth.Application.Infrastructure
 
             serviceCollection.AddTransient<IAttestationUseCase, AttestationUseCase>();
             serviceCollection.AddTransient<IAssertionUseCase, AssertionUseCase>();
+
+            serviceCollection.AddMagicAuthMigrations(configuration.GetConnectionString("MagicAuth"));
         }
     }
 }
