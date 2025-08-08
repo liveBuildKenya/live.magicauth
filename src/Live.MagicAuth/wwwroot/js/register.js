@@ -1,5 +1,5 @@
 ﻿async function fetchCredentialOptions() {
-    let response = await fetch('/credentials/options?email=example@example.com&displayName=Display name', {
+    let response = await fetch('/attestation/options?username=example@example.com&displayName=Display name', {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -67,7 +67,7 @@ async function registerNewCredentials(newCredentials) {
     let response;
 
     try {
-        response = await fetch('/credentials', {
+        response = await fetch('/attestation', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -81,6 +81,10 @@ async function registerNewCredentials(newCredentials) {
     catch (error) {
         console.log(error);
     }
+
+    // redirect to dashboard to show keys
+    window.location.href = "/"
+    //+ value("#login-username");
 }
 
 makeCredentials();

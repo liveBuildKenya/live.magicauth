@@ -24,7 +24,7 @@ namespace Live.MagicAuth.Assertion
 
             endpointRouteBuilder.MapPost("/assertion", async ([FromServices] IAssertionUseCase assertionUseCase,
                 [FromBody] AuthenticatorAssertionRawResponse authenticatorAssertionRawResponse,
-                CancellationToken cancellationToken) => await assertionUseCase.RegisterCredentials(authenticatorAssertionRawResponse, cancellationToken))
+                CancellationToken cancellationToken) => await assertionUseCase.MakeAssertion(authenticatorAssertionRawResponse, cancellationToken))
                 .WithTags(tag);
         }
     }

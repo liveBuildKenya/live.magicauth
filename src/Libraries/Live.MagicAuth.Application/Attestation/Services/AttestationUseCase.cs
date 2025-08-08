@@ -40,10 +40,15 @@ namespace Live.MagicAuth.Application.Attestation.Services
 
         #region Methods
 
-        public IResult MakeAttestationOptions(AttestationOptionsRequestModel credentialOptionsRequestModel)
+        /// <summary>
+        /// Makes the attestation options for a new credential registration
+        /// </summary>
+        /// <param name="attestationOptionsRequestModel">Attestation options request model</param>
+        /// <returns>Attestation options</returns>
+        public IResult MakeAttestationOptions(AttestationOptionsRequestModel attestationOptionsRequestModel)
         {
             //Get user from db by username.
-            var customerModel = customerFactory.GetCustomerWithCredentials(credentialOptionsRequestModel.Email);
+            var customerModel = customerFactory.GetCustomerWithCredentials(attestationOptionsRequestModel.Username);
             //Create a new Fido2User object
             var user = new Fido2User
             {
@@ -74,7 +79,13 @@ namespace Live.MagicAuth.Application.Attestation.Services
             return Results.Ok(options);
         }
 
-        public async Task<IResult> RegisterCredentials(AuthenticatorAttestationRawResponse authenticatorAttestationRawResponse, CancellationToken cancellationToken)
+        /// <summary>
+        /// Makes the attestation for a new credential registration
+        /// </summary>
+        /// <param name="authenticatorAttestationRawResponse">Authenticator attestation raw response</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Attestation Result</returns>
+        public async Task<IResult> MakeAttestation(AuthenticatorAttestationRawResponse authenticatorAttestationRawResponse, CancellationToken cancellationToken)
         {
             var jsonOptions = httpContextAccessor.HttpContext.Session.GetString("fido2.attestationOptions");
             var options = CredentialCreateOptions.FromJson(jsonOptions);

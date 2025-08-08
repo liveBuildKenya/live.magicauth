@@ -18,17 +18,17 @@ namespace Live.MagicAuth.Attestation
         {
             var routeTag = "Attestation";
 
-            endpointRouteBuilder.MapGet("/credentials/options",
-                ([FromQuery] string email,
+            endpointRouteBuilder.MapGet("/attestation/options",
+                ([FromQuery] string username,
                 [FromQuery] string displayName,
                 [FromServices] IAttestationUseCase attestationUseCase) =>
-                attestationUseCase.MakeAttestationOptions(new AttestationOptionsRequestModel { Email = email, DisplayName = displayName }))
+                attestationUseCase.MakeAttestationOptions(new AttestationOptionsRequestModel { Username = username, DisplayName = displayName }))
                 .WithTags(routeTag);
 
-            endpointRouteBuilder.MapPost("/credentials",
+            endpointRouteBuilder.MapPost("/attestation",
                 async ([FromBody]AuthenticatorAttestationRawResponse authenticatorAttestationRawResponse,
                 [FromServices]IAttestationUseCase attestationService,
-                CancellationToken cancellationToken) => await attestationService.RegisterCredentials(authenticatorAttestationRawResponse, cancellationToken))
+                CancellationToken cancellationToken) => await attestationService.MakeAttestation(authenticatorAttestationRawResponse, cancellationToken))
                 .WithTags(routeTag);
         }
     }

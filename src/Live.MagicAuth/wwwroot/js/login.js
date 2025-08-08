@@ -101,9 +101,10 @@ async function verifyAssertionWithServer(assertedCredential) {
         showErrorAlert(response.errorMessage);
         return;
     }
-
+    console.log("Redirecting")
     // redirect to dashboard to show keys
-    //window.location.href = "/dashboard/" + value("#login-username");
+    window.location.href = "/"
+    //+ value("#login-username");
 }
 
 handleSignInSubmit();

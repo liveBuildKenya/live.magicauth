@@ -13,10 +13,16 @@ namespace Live.MagicAuth.Application.Assertion.Services
     /// </summary>
     public class AssertionUseCase : IAssertionUseCase
     {
+        #region Fields
+
         private readonly ICustomerFactory customerFactory;
         private readonly ICredentialFactory credentialFactory;
         private readonly IFido2 fido2;
         private readonly IHttpContextAccessor httpContextAccessor;
+
+        #endregion
+
+        #region Constructor
 
         public AssertionUseCase(ICustomerFactory customerFactory,
             ICredentialFactory credentialFactory,
@@ -29,6 +35,16 @@ namespace Live.MagicAuth.Application.Assertion.Services
             this.httpContextAccessor = httpContextAccessor;
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Makes assertion options based on the provided request model.
+        /// </summary>
+        /// <param name="assertionOptionsRequestModel">Assertion options request modlel</param>
+        /// <returns>Assertion options</returns>
+        /// <exception cref="ArgumentException"></exception>
         public IResult MakeAssertionOptions(AssertionOptionsRequestModel assertionOptionsRequestModel)
         {
             var existingCredentials = new List<PublicKeyCredentialDescriptor>();
@@ -62,7 +78,13 @@ namespace Live.MagicAuth.Application.Assertion.Services
             return Results.Ok(options);
         }
 
-        public async Task<IResult> RegisterCredentials(AuthenticatorAssertionRawResponse authenticatorAssertionRawResponse, CancellationToken cancellationToken)
+        /// <summary>
+        /// Makes assertion based on the provided authenticator assertion raw response.
+        /// </summary>
+        /// <param name="authenticatorAssertionRawResponse">Authenticator assertion raw response</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Assertion result</returns>
+        public async Task<IResult> MakeAssertion(AuthenticatorAssertionRawResponse authenticatorAssertionRawResponse, CancellationToken cancellationToken)
         {
             // 1. Get the assertion options we sent the client
             var jsonOptions = httpContextAccessor.HttpContext.Session.GetString("fido2.assertionOptions");
@@ -86,5 +108,7 @@ namespace Live.MagicAuth.Application.Assertion.Services
             // 7. return OK to client
             return Results.Ok(res);
         }
+
+        #endregion
     }
 }

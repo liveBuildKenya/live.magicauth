@@ -9,7 +9,19 @@ namespace Live.MagicAuth.Application.Assertion.Services
     /// </summary>
     public interface IAssertionUseCase
     {
+        /// <summary>
+        /// Makes assertion options based on the provided request model.
+        /// </summary>
+        /// <param name="assertionOptionsRequestModel">Assertion options request model</param>
+        /// <returns>Assertion options</returns>
         IResult MakeAssertionOptions(AssertionOptionsRequestModel assertionOptionsRequestModel);
-        Task<IResult> RegisterCredentials(AuthenticatorAssertionRawResponse authenticatorAssertionRawResponse, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Makes an assertion based on the provided authenticator assertion raw response.
+        /// </summary>
+        /// <param name="authenticatorAssertionRawResponse">Authenticator assertion raw response</param>
+        /// <param name="cancellationToken"></param>
+        /// <returns></returns>
+        Task<IResult> MakeAssertion(AuthenticatorAssertionRawResponse authenticatorAssertionRawResponse, CancellationToken cancellationToken);
     }
 }
