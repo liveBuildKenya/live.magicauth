@@ -1,9 +1,11 @@
-﻿async function handleSignInSubmit() {;
+﻿document.getElementById('login').addEventListener('submit', handleLoginSubmit);
 
+async function handleLoginSubmit(event) {
+    event.preventDefault();
     // send to server for registering
     let makeAssertionOptions;
     try {
-        var res = await fetch('/assertion/option?username=example@example.com', {
+        var res = await fetch(`/assertion/option?username=${this.email.value}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -106,5 +108,3 @@ async function verifyAssertionWithServer(assertedCredential) {
     window.location.href = "/"
     //+ value("#login-username");
 }
-
-handleSignInSubmit();

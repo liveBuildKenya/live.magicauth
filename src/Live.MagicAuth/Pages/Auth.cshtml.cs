@@ -10,12 +10,18 @@ namespace Live.MagicAuth.Pages
 
         public IActionResult OnGet()
         {
-            if (Operation != "login" && Operation != "register")
+            if (Operation != AuthOperations.Login && Operation != AuthOperations.Register)
             {
                 return NotFound(); // optional: redirect or return error
             }
 
             return Page();
         }
+    }
+
+    public static class AuthOperations
+    {
+        public const string Login = "login";
+        public const string Register = "register";
     }
 }

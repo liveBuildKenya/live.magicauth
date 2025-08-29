@@ -1,5 +1,68 @@
-﻿async function fetchCredentialOptions() {
-    let response = await fetch('/attestation/options?username=example@example.com&displayName=Display name', {
+﻿document.getElementById('register').addEventListener('submit', handleRegisterSubmit);
+
+async function handleRegisterSubmit(event) {
+    event.preventDefault();
+
+    // send to server for registering
+    let makeCredentialOptions;
+    try {
+        makeCredentialOptions = await fetchCredentialOptions(this.email.value, this.displayName.value);
+
+    } catch (e) {
+        console.error(e);
+        let msg = "Something wen't really wrong";
+        showErrorAlert(msg);
+    }
+
+
+    console.log("Credential Options Object", makeCredentialOptions);
+
+    if (makeCredentialOptions.status !== "ok") {
+        console.log("Error creating credential options");
+        console.log(makeCredentialOptions.errorMessage);
+        return;
+    }
+
+    // Turn the challenge back into the accepted format of padded base64
+    makeCredentialOptions.challenge = coerceToArrayBuffer(makeCredentialOptions.challenge);
+    // Turn ID into a UInt8Array Buffer for some reason
+    makeCredentialOptions.user.id = coerceToArrayBuffer(makeCredentialOptions.user.id);
+
+    makeCredentialOptions.excludeCredentials = makeCredentialOptions.excludeCredentials.map((c) => {
+        c.id = coerceToArrayBuffer(c.id);
+        return c;
+    });
+
+    if (makeCredentialOptions.authenticatorSelection.authenticatorAttachment === null) makeCredentialOptions.authenticatorSelection.authenticatorAttachment = undefined;
+
+    console.log("Credential Options Formatted", makeCredentialOptions);
+
+
+    console.log("Creating PublicKeyCredential...");
+
+    let newCredential;
+    try {
+        newCredential = await navigator.credentials.create({
+            publicKey: makeCredentialOptions
+        });
+    } catch (e) {
+        var msg = "Could not create credentials in browser. Probably because the username is already registered with your authenticator. Please change username or authenticator."
+        console.error(msg, e);
+    }
+
+
+    console.log("PublicKeyCredential Created", newCredential);
+
+    try {
+        registerNewCredential(newCredential);
+
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+async function fetchCredentialOptions(username, displayName) {
+    let response = await fetch(`/attestation/options?username=${username}&displayName=${displayName}`, {
         method: 'GET',
         headers: {
             'Accept': 'application/json'
@@ -11,53 +74,16 @@
     return data;
 }
 
-async function makeCredentials() {
-    const credentialCreationOptions = await fetchCredentialOptions();
-
-    console.log(credentialCreationOptions);
-
-    credentialCreationOptions.challenge = coerceToArrayBuffer(credentialCreationOptions.challenge);
-
-    credentialCreationOptions.user.id = coerceToArrayBuffer(credentialCreationOptions.user.id);
-
-    if (credentialCreationOptions.excludedCredentials) {
-        credentialCreationOptions.excludedCredentials = credentialCreationOptions.excludedCredentials.map((credential) => {
-            credential.id = coerceToArrayBuffer(credential.id);
-
-            return credential;
-        });
-    }
-
-    let credentials;
-
-    try {
-        credentials = await navigator.credentials.create({
-            publicKey: credentialCreationOptions
-        });
-    }
-    catch (error) {
-        console.log(error)
-    }
-
-    try {
-        registerNewCredentials(credentials);
-
-    }
-    catch(error) {
-        console.log(error);
-    }
-}
-
-async function registerNewCredentials(newCredentials) {
-    let attestationObject = new Uint8Array(newCredentials.response.attestationObject);
-    let clientDataJSON = new Uint8Array(newCredentials.response.clientDataJSON);
-    let rawId = new Uint8Array(newCredentials.rawId);
+async function registerNewCredential(newCredential) {
+    let attestationObject = new Uint8Array(newCredential.response.attestationObject);
+    let clientDataJSON = new Uint8Array(newCredential.response.clientDataJSON);
+    let rawId = new Uint8Array(newCredential.rawId);
 
     const data = {
-        id: newCredentials.id,
+        id: newCredential.id,
         rawId: coerceToBase64Url(rawId),
-        type: newCredentials.type,
-        extensions: newCredentials.getClientExtensionResults(),
+        type: newCredential.type,
+        extensions: newCredential.getClientExtensionResults(),
         response: {
             attestationObject: coerceToBase64Url(attestationObject),
             clientDataJson: coerceToBase64Url(clientDataJSON)
@@ -86,5 +112,3 @@ async function registerNewCredentials(newCredentials) {
     window.location.href = "/"
     //+ value("#login-username");
 }
-
-makeCredentials();

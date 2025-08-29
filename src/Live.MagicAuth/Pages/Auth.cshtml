@@ -1,5 +1,7 @@
 ﻿@page "/auth/{operation}"
 @model Live.MagicAuth.Pages.AuthModel
+@using Live.MagicAuth.Pages
+
 @{
     ViewData["Title"] = Model.Operation == "register" ? "Register" : "Login";
     Layout = "_Layout";
@@ -7,11 +9,26 @@
 
 <h1>@ViewData["Title"]</h1>
 
-@if (Model.Operation == "register")
+<form id="@Model.Operation.ToLower()">
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required />
+    </div>
+    @if (string.Equals(Model.Operation, AuthOperations.Register, StringComparison.InvariantCultureIgnoreCase))
+    {
+        <div>
+            <label for="displayName">Display Name</label>
+            <input type="text" id="displayName" name="displayName" required />
+        </div>
+    }
+    <button type="submit">@Model.Operation</button>
+</form>
+
+@if (string.Equals(Model.Operation, AuthOperations.Register, StringComparison.InvariantCultureIgnoreCase))
 {
     <script src="~/js/register.js"></script>
 }
-else if (Model.Operation == "login")
+else if (string.Equals(Model.Operation, AuthOperations.Login, StringComparison.InvariantCultureIgnoreCase))
 {
     <script src="~/js/login.js"></script>
 }
