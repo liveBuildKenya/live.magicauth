@@ -52,7 +52,7 @@ namespace Live.MagicAuth
             serviceCollection.AddOpenApi();
             serviceCollection.AddMagicAuthApplicationServices(Configuration);
 
-            var origins = new[] { "https://localhost:7286", "https://localhost:44368/" };
+            var origins = new[] { "https://localhost:7286", "https://localhost:44368/", "http://localhost:5166" };
             var originsHashSet = new HashSet<string>(origins);
 
             serviceCollection.AddFido2(options =>
