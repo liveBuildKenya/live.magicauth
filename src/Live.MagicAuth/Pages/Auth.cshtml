@@ -1,28 +1,30 @@
 ﻿@page "/auth/{operation}"
 @model Live.MagicAuth.Pages.AuthModel
 @using Live.MagicAuth.Pages
-
 @{
     ViewData["Title"] = Model.Operation == "register" ? "Register" : "Login";
     Layout = "_Layout";
 }
 
-<h1>@ViewData["Title"]</h1>
-
-<form id="@Model.Operation.ToLower()">
-    <div>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" required />
+<div class="container">
+    <div class="auth-card">
+        <h1>@ViewData["Title"]</h1>
+        <form id="@Model.Operation.ToLower()">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            @if (string.Equals(Model.Operation, AuthOperations.Register, StringComparison.InvariantCultureIgnoreCase))
+            {
+                <div class="form-group">
+                    <label for="displayName">Display Name</label>
+                    <input type="text" id="displayName" name="displayName" required />
+                </div>
+            }
+            <button type="submit">@Model.Operation</button>
+        </form>
     </div>
-    @if (string.Equals(Model.Operation, AuthOperations.Register, StringComparison.InvariantCultureIgnoreCase))
-    {
-        <div>
-            <label for="displayName">Display Name</label>
-            <input type="text" id="displayName" name="displayName" required />
-        </div>
-    }
-    <button type="submit">@Model.Operation</button>
-</form>
+</div>
 
 @if (string.Equals(Model.Operation, AuthOperations.Register, StringComparison.InvariantCultureIgnoreCase))
 {
