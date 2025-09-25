@@ -42,7 +42,7 @@
 }
 
 .promo-text h2.brand {
-    color: #008060;
+    color: #667eea;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
@@ -167,7 +167,7 @@
 
 .btn.submit {
     width: 100%;
-    background: #00b894;
+    background: #667eea;
     color: #fff;
     font-weight: 600;
     margin-top: 0.5rem;
@@ -181,7 +181,7 @@
 }
 
     .signup-text a {
-        color: #00b894;
+        color: #667eea;
         text-decoration: none;
     }
 
